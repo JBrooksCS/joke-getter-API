@@ -15,26 +15,28 @@ Bonus 2
 6. Incorporate a button that will get a new joke.
 */
 
+const answer_button = document.getElementById("button")
+answer_button.addEventListener("click",function(event){
+    const answer_p = document.getElementById("answer");
+    answer_p.style.visibility = "visible";
+
+})
+
 function makeIntoHtml(setup, punchline){
-    let htmlProduct = `<p class="question">${setup}</p>
-    <p class="answer">${punchline}</p>
+    let htmlProduct = `<p id="question">${setup}</p>
+    <p id="answer">${punchline}</p>
     `
-
     return htmlProduct;
-
 }
 
 
 function addToDom(htmlString){
     const addition = document.querySelector("#container");
-
     addition.innerHTML += htmlString;
-
-}
-
+    }
 
 fetch(`https://official-joke-api.appspot.com/random_joke`)
-        .then(joke => joke.json())
+        .then(result => result.json())
         .then(joke => {
             console.log(joke.setup)
             console.log(joke.punchline)
@@ -42,6 +44,4 @@ fetch(`https://official-joke-api.appspot.com/random_joke`)
             const part2 = (joke.punchline);
             const html_string = makeIntoHtml(part1, part2);
             addToDom(html_string);
-
-
         })
